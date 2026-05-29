@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useReducer } from 'react';
+import React, { useState, useReducer } from 'react';
 import _ from 'lodash';
 
 import { fetchRepos } from './fetchRepos';
@@ -32,7 +31,7 @@ function reduceRepos(state: ReposState, { type, ...repos }: { type: string }) {
         page: state.page + 1,
       };
     default:
-      throw new Error();
+      throw new Error(`Unhandled action type: ${type}`);
   }
 }
 
@@ -74,7 +73,7 @@ function App() {
   return (
     <div>
       <label htmlFor="name">
-        Repository name
+        Repository name{' '}
         <input id="name" onChange={debounceHandleChange} placeholder="Search for repos here" />
       </label>
       {error ? <span className="error-text">Something went wrong.</span> : null}
