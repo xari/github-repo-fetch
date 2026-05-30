@@ -80,11 +80,12 @@ function App() {
       {error ? <span className="error-text">Something went wrong.</span> : null}
       {loading ? (
         <span>Loading...</span>
-      ) : repos.items && repos.items.length === 0 ? (
+      ) : null}
+      {!loading && repos.items?.length === 0 ? (
         <span className="help-text">No repositories matched that query.</span>
       ) : null}
       <div className="grid">
-        {repos.items && repos.items.map((repo, i) => <Card key={i} {...repo} />)}
+        {repos.items?.map((repo) => <Card key={repo.id} {...repo} />)}
       </div>
       <div className="more-wrapper">
         {repos.items && repos.items.length < repos.total_count ? (
@@ -92,7 +93,8 @@ function App() {
             <span>{`${repos.items.length} of ${repos.total_count}`}</span>
             <button onClick={debounceHandleClick}>{loading ? 'Loading...' : 'Load more'}</button>
           </>
-        ) : repos.items && repos.total_count ? (
+        ) : null}
+        {repos.items && repos.items.length >= repos.total_count && repos.total_count ? (
           <span>{`All ${repos.items.length} of ${repos.total_count} matching repositories shown.`}</span>
         ) : null}
       </div>
